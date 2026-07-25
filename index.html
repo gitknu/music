@@ -3,20 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <!-- Захист від помилок блокування YouTube-плеєра -->
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  
-  <title>Хронологія музики & Таймлайн</title>
-  
+  <title>Музика 🎵</title>
   <!-- Шрифт Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <!-- Скрипт іконок Lucide -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
     /* Декоративні змінні світлого корпоративного стилю */
     :root {
@@ -29,13 +24,11 @@
       --text-muted: #64748b;    /* Сірий для другорядних елементів */
       --accent-blue: #2563eb;
     }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     body {
       background-color: var(--bg-light);
       color: var(--text-main);
@@ -43,7 +36,6 @@
       overflow-x: hidden;
       line-height: 1.6;
     }
-
     /* Індикатор прогресу прокрутки вгорі сторінки */
     #progress-bar {
       position: fixed;
@@ -55,7 +47,6 @@
       z-index: 1000;
       transition: width 0.1s ease;
     }
-
     /* Шапка сайту */
     header {
       padding: 90px 20px 50px;
@@ -64,7 +55,6 @@
       background: radial-gradient(circle at top, rgba(184, 0, 0, 0.04) 0%, transparent 70%);
       border-bottom: 1px solid var(--border-color);
     }
-
     h1 {
       font-size: 3rem;
       font-weight: 800;
@@ -72,7 +62,6 @@
       margin-bottom: 12px;
       color: var(--text-main);
     }
-
     .subtitle {
       font-size: 1.15rem;
       color: var(--text-muted);
@@ -80,7 +69,6 @@
       margin: 0 auto 35px;
       font-weight: 400;
     }
-
     /* Головний пошук */
     .search-container {
       position: relative;
@@ -88,7 +76,6 @@
       margin: 0 auto;
       z-index: 10;
     }
-
     .search-input {
       width: 100%;
       padding: 18px 20px 18px 55px;
@@ -101,13 +88,11 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     }
-
     .search-input:focus {
       outline: none;
       border-color: var(--primary-red);
       box-shadow: 0 0 0 4px rgba(184, 0, 0, 0.08), 0 8px 25px rgba(0, 0, 0, 0.05);
     }
-
     .search-icon {
       position: absolute;
       left: 22px;
@@ -116,7 +101,6 @@
       color: var(--text-muted);
       pointer-events: none;
     }
-
     /* Панель статистики */
     .stats-bar {
       display: flex;
@@ -126,7 +110,6 @@
       max-width: 800px;
       flex-wrap: wrap;
     }
-
     .stat-item {
       background: #ffffff;
       padding: 12px 24px;
@@ -139,12 +122,10 @@
       gap: 10px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     }
-
     .stat-item strong {
       color: var(--text-main);
       font-weight: 700;
     }
-
     /* Контейнер таймлайну */
     .timeline-container {
       position: relative;
@@ -152,7 +133,6 @@
       margin: 80px auto;
       padding: 0 20px 200px;
     }
-
     /* Центральна лінія таймлайну (під низом) */
     .timeline-container::before {
       content: '';
@@ -170,7 +150,6 @@
       transform: translateX(-50%);
       z-index: 1; /* Рівень під маркерами */
     }
-
     /* Рядок таймлайну (stretch) */
     .timeline-item {
       display: flex;
@@ -180,13 +159,11 @@
       align-items: stretch; /* Рівна висота блоків */
       position: relative;
     }
-
     /* Ліва та права сторони */
     .timeline-side {
       width: calc(50% - 100px); 
       z-index: 5;
     }
-
     /* Центральний маркер епохи */
     .timeline-marker {
       width: 160px;
@@ -200,7 +177,6 @@
       text-align: center;
       padding: 15px 0;
     }
-
     /* Іконка в центрі (Z-index 9999 + суцільне біле тло) */
     .timeline-dot {
       width: 46px;
@@ -216,19 +192,16 @@
       z-index: 9999 !important;
       transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     }
-
     .timeline-item.active .timeline-dot {
       background-color: var(--primary-red) !important;
       color: #ffffff;
       transform: scale(1.15);
       box-shadow: 0 0 25px rgba(184, 0, 0, 0.45) !important;
     }
-
     .timeline-dot i {
       width: 18px;
       height: 18px;
     }
-
     /* Назва року на таймлайні (Z-index 9999 + суцільне тло) */
     .timeline-period-label {
       font-size: 0.82rem;
@@ -245,7 +218,6 @@
       text-align: center;
       z-index: 9999 !important;
     }
-
     /* ДИЗАЙН КЛІКАБЕЛЬНОЇ КАРТКИ ОПИСУ */
     .event-card-link {
       display: flex;
@@ -262,63 +234,56 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important; /* Більш помітна та естетична тінь */
     }
-
+    /* Запобігання рожевому кольору при наведенні та затемнення лівої лінії */
     .event-card-link:not(.empty):hover {
       background-color: #ffffff;
-      border-color: rgba(184, 0, 0, 0.3);
+      border-color: var(--border-color);
+      border-left-color: var(--primary-red-hover) !important;
       transform: translateY(-4px);
       box-shadow: 0 16px 32px rgba(184, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.06) !important;
     }
-
     .event-card-header {
       display: flex;
       align-items: center;
       gap: 10px;
       color: var(--primary-red);
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 1.25rem;
       margin-bottom: 12px;
     }
-
     .event-card-header i {
       width: 18px;
       height: 18px;
     }
-
     .event-card-text {
-      font-size: 1.15rem; /* Збільшений та більш видимий розмір шрифту */
+      font-size: 1.55rem; /* Збільшений та більш видимий розмір шрифту */
       font-weight: 700;
       color: var(--text-main);
       line-height: 1.5;
       margin-bottom: 20px;
     }
-
     .event-card-text.italic {
       font-style: italic;
       color: var(--text-muted);
       font-weight: 400;
     }
-
     .event-card-footer {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.75rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--text-muted);
       transition: color 0.2s ease;
       margin-top: auto; 
     }
-
     .event-card-link:hover .event-card-footer {
       color: var(--primary-red);
     }
-
     .event-card-footer i {
       width: 14px;
       height: 14px;
     }
-
     .event-card-link.empty {
       background: #fbfbfc !important;
       border: 1px dashed var(--border-color) !important;
@@ -326,7 +291,6 @@
       cursor: default;
       box-shadow: none !important;
     }
-
     /* СПИСОК ВІДЕО */
     .timeline-videos-list {
       display: flex;
@@ -335,7 +299,6 @@
       width: 100%;
       height: 100%; 
     }
-
     /* Горизонтальна відеокартка з прев'ю */
     .video-card {
       display: flex;
@@ -351,18 +314,16 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03) !important; /* Помітна тінь */
     }
-
     .video-card-link:hover {
       border-color: rgba(184, 0, 0, 0.3);
       transform: translateY(-4px);
       box-shadow: 0 16px 32px rgba(184, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.03) !important;
     }
-
-    /* Обгортка зображення-прев'ю */
+    /* Обгортка зображення-прев'ю з збереженням пропорцій */
     .video-thumbnail-wrapper {
       position: relative;
       width: 100%;
-      height: 155px; 
+      aspect-ratio: 16 / 9;
       background-color: #000;
       border-radius: 10px;
       overflow: hidden;
@@ -370,7 +331,6 @@
       align-items: center;
       justify-content: center;
     }
-
     /* Зображення прев'ю */
     .video-preview-image {
       width: 100%;
@@ -378,11 +338,9 @@
       object-fit: cover;
       transition: transform 0.3s ease;
     }
-
     .video-card-link:hover .video-preview-image {
       transform: scale(1.05);
     }
-
     /* Естетичний Play Overlay поверх картинки */
     .video-play-overlay {
       position: absolute;
@@ -396,11 +354,9 @@
       justify-content: center;
       transition: background 0.3s ease;
     }
-
     .video-card-link:hover .video-play-overlay {
       background: rgba(0, 0, 0, 0.4);
     }
-
     .play-icon-overlay {
       width: 44px;
       height: 44px;
@@ -414,12 +370,10 @@
       box-shadow: 0 4px 15px rgba(184, 0, 0, 0.4);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
     }
-
     .video-card-link:hover .play-icon-overlay {
       transform: scale(1.12);
       background: var(--primary-red-hover);
     }
-
     /* Опис відео */
     .video-details {
       padding-top: 10px;
@@ -427,47 +381,40 @@
       flex-direction: column;
       justify-content: center;
     }
-
     .video-name {
-      font-size: 0.9rem;
+      font-size: 1.10rem;
       font-weight: 700;
       color: var(--text-main);
       line-height: 1.35;
       white-space: normal;
       word-break: break-word;
     }
-
     .video-year {
       display: block;
-      font-size: 0.75rem;
+      font-size: 1.05rem;
       color: var(--text-muted);
       margin-top: 4px;
       font-weight: 600;
     }
-
     /* Заглушки */
     .empty-video {
       background: #fdfdfd !important;
       border: 1px dashed var(--border-color) !important;
       box-shadow: none !important;
     }
-
     .empty-video .video-thumbnail-wrapper {
       background: #f1f5f9;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
     .empty-video .video-details {
       background: #fdfdfd;
     }
-
     .empty-video .video-details span {
       color: var(--text-muted) !important;
       font-style: italic;
     }
-
     /* ПЛАВАЮЧА ПАНЕЛЬ КЕРУВАННЯ */
     .floating-controls-panel {
       position: fixed;
@@ -486,18 +433,15 @@
       opacity: 0;
       visibility: hidden;
     }
-
     .floating-controls-panel.visible {
       opacity: 1;
       visibility: visible;
     }
-
     .floating-search-box {
       position: relative;
       display: flex;
       align-items: center;
     }
-
     .floating-search-icon {
       position: absolute;
       left: 14px;
@@ -506,7 +450,6 @@
       height: 16px;
       pointer-events: none;
     }
-
     .floating-search-input {
       border: 1px solid var(--border-color);
       background: #ffffff;
@@ -515,17 +458,15 @@
       font-family: 'Montserrat', sans-serif;
       font-size: 0.85rem;
       color: var(--text-main);
-      width: 160px;
+      width: 250px;
       transition: all 0.3s ease;
     }
-
     .floating-search-input:focus {
       outline: none;
       border-color: var(--primary-red);
-      width: 240px;
+      width: 300px;
       box-shadow: 0 0 0 3px rgba(184, 0, 0, 0.08);
     }
-
     .back-to-top {
       background-color: var(--primary-red);
       color: #ffffff;
@@ -541,17 +482,14 @@
       box-shadow: 0 4px 10px rgba(184, 0, 0, 0.15);
       flex-shrink: 0;
     }
-
     .back-to-top:hover {
       background-color: var(--primary-red-hover);
       transform: translateY(-2px);
     }
-
     .back-to-top i {
       width: 16px;
       height: 16px;
     }
-
     /* АНІМАЦІЯ «ВИХІД ІЗ ТУМАНУ» */
     /* Анімуємо лише бічні елементи, щоб центральний маркер року залишався статичним та завжди непрозорим */
     .reveal .timeline-side {
@@ -563,110 +501,211 @@
                   transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
     }
-
     .reveal.active .timeline-side {
       opacity: 1;
       filter: blur(0);
       transform: translateY(0) scale(1);
       pointer-events: auto;
     }
-
-    /* Адаптивність мобільних пристроїв */
+    /* ОПТИМІЗАЦІЯ ТА АДАПТИВНІСТЬ ДЛЯ СЕРЕДНІХ ЕКРАНІВ (ПЛАНШЕТИ) */
     @media (max-width: 992px) {
       .timeline-container::before {
-        left: 30px;
-        transform: none;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
       }
-
       .timeline-item {
-        flex-direction: column !important;
+        display: flex !important;
+        flex-direction: row !important; /* Збереження двосторонньої структури */
         align-items: stretch !important;
-        height: auto !important; 
         margin-bottom: 120px;
-        padding-left: 60px;
+        padding-left: 0 !important;
       }
-
       .timeline-side {
-        width: 100% !important;
+        width: calc(50% - 50px) !important; /* Оптимальний розподіл простору */
         height: auto !important;
       }
-
-      .event-side {
-        order: 1;
-        margin-bottom: 20px;
-      }
-
-      .videos-side {
-        order: 2;
-      }
-
-      .event-card-link {
-        min-height: auto !important;
-        height: auto !important;
-      }
-
-      .video-card {
-        flex: none !important;
-        height: auto !important;
-      }
-
       .timeline-marker {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 60px;
-        align-items: center; /* Центруємо маркери поверх лінії */
-        padding: 0;
-        z-index: 9999 !important;
+        width: 80px !important;
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
       }
-
       .timeline-dot {
-        width: 36px;
-        height: 36px;
+        width: 36px !important;
+        height: 36px !important;
       }
-
       .timeline-period-label {
-        font-size: 0.75rem;
-        padding: 4px 10px;
-        margin-top: 6px;
+        font-size: 0.75rem !important;
+        padding: 5px 10px !important;
+        margin-top: 8px !important;
       }
-
-      h1 {
-        font-size: 2.2rem;
+      .event-card-link {
+        padding: 16px !important;
+      }
+      .event-card-text {
+        font-size: 1.15rem !important;
+        margin-bottom: 12px;
+      }
+      .event-card-header {
+        font-size: 1rem !important;
+        margin-bottom: 8px;
+      }
+      .event-card-footer {
+        font-size: 0.85rem !important;
+      }
+      .video-card {
+        padding: 8px !important;
+      }
+      .video-name {
+        font-size: 0.95rem !important;
+      }
+      .video-year {
+        font-size: 0.85rem !important;
+      }
+      .play-icon-overlay {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 8px !important;
       }
     }
-
-    @media (max-width: 480px) {
+    /* ПОВНА АДАПТИВНІСТЬ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ (Збереження двосторонньої структури) */
+    @media (max-width: 576px) {
+      .timeline-item {
+        margin-bottom: 80px; 
+      }
+      .timeline-side {
+        width: calc(50% - 32px) !important; /* Максимальне розширення бічних колонок */
+      }
+      .timeline-marker {
+        width: 54px !important; /* Компактна центральна вісь */
+      }
+      .timeline-dot {
+        width: 28px !important;
+        height: 28px !important;
+        border-width: 2px !important;
+      }
+      .timeline-dot i {
+        width: 12px !important;
+        height: 12px !important;
+      }
+      .timeline-period-label {
+        font-size: 0.65rem !important;
+        padding: 3px 6px !important;
+        margin-top: 6px !important;
+        border-width: 1.5px !important;
+        border-radius: 8px !important;
+      }
+      .event-card-link {
+        padding: 10px !important;
+        border-left-width: 3px !important;
+        border-radius: 10px !important;
+      }
+      .event-card-header {
+        font-size: 0.8rem !important;
+        gap: 6px !important;
+        margin-bottom: 6px;
+      }
+      .event-card-header i {
+        width: 12px !important;
+        height: 12px !important;
+      }
+      .event-card-text {
+        font-size: 0.85rem !important; /* Зменшений та легкочитний розмір тексту події на мобільних */
+        margin-bottom: 8px;
+      }
+      .event-card-footer {
+        font-size: 0.75rem !important;
+        gap: 4px !important;
+      }
+      .event-card-footer i {
+        width: 10px !important;
+        height: 10px !important;
+      }
+      .video-card {
+        padding: 5px !important;
+        border-radius: 10px !important;
+      }
+      .video-thumbnail-wrapper {
+        border-radius: 6px !important;
+      }
+      .video-details {
+        padding-top: 6px !important;
+      }
+      .video-name {
+        font-size: 0.8rem !important;
+        line-height: 1.2 !important;
+      }
+      .video-year {
+        font-size: 0.75rem !important;
+        margin-top: 2px !important;
+      }
+      .play-icon-overlay {
+        width: 26px !important;
+        height: 26px !important;
+        padding: 6px !important;
+      }
+      header {
+        padding: 50px 15px 30px !important;
+      }
+      h1 {
+        font-size: 1.8rem !important;
+      }
+      .subtitle {
+        font-size: 0.95rem !important;
+        margin-bottom: 20px !important;
+      }
+      .stats-bar {
+        gap: 15px !important;
+        margin-top: 20px !important;
+      }
+      .stat-item {
+        padding: 8px 16px !important;
+        font-size: 0.8rem !important;
+      }
+      .floating-controls-panel {
+        bottom: 15px !important;
+        right: 15px !important;
+        padding: 6px 10px !important;
+      }
       .floating-search-input {
-        width: 110px;
+        width: 140px !important;
       }
       .floating-search-input:focus {
-        width: 150px;
+        width: 180px !important;
+      }
+    }
+    @media (max-width: 380px) {
+      .timeline-side {
+        width: calc(50% - 24px) !important;
+      }
+      .timeline-marker {
+        width: 40px !important;
+      }
+      .timeline-period-label {
+        font-size: 0.58rem !important;
+        padding: 2px 4px !important;
       }
     }
   </style>
 </head>
 <body>
-
   <!-- Індикатор прокрутки -->
   <div id="progress-bar"></div>
-
   <!-- Шапка -->
   <header>
-    <h1>Хронологія музики</h1>
+    <h1>Музичний таймлайн</h1>
     <p class="subtitle">Подорож крізь знакові події та музичні релізи XX та XXI століття</p>
-    
     <!-- Головний Пошук -->
     <div class="search-container">
       <i data-lucide="search" class="search-icon"></i>
-      <input type="text" id="searchInput" class="search-input" placeholder="Шукати епоху, подійний блок або трек...">
+      <input type="text" id="searchInput" class="search-input" placeholder="Пошук подій, особистостей або композицій...">
     </div>
-
     <!-- Метрики -->
     <div class="stats-bar">
       <div class="stat-item">
         <i data-lucide="calendar"></i>
-        <span>Епох: <strong id="totalPeriods">0</strong></span>
+        <span>П'ятирічних періодів: <strong id="totalPeriods">0</strong></span>
       </div>
       <div class="stat-item">
         <i data-lucide="play-circle"></i>
@@ -674,27 +713,23 @@
       </div>
     </div>
   </header>
-
   <!-- Таймлайн -->
   <main class="timeline-container" id="timelineItems">
     <!-- Генерується через JS -->
   </main>
-
   <!-- ПЛАВАЮЧА ПАНЕЛЬ КЕРУВАННЯ -->
   <div class="floating-controls-panel" id="floatingControls">
     <div class="floating-search-box">
       <i data-lucide="search" class="floating-search-icon"></i>
-      <input type="text" id="floatingSearchInput" class="floating-search-input" placeholder="Шукати тут...">
+      <input type="text" id="floatingSearchInput" class="floating-search-input" placeholder="Шукати події, роки, імена...">
     </div>
     <button class="back-to-top" id="backToTopBtn" aria-label="Вгору">
       <i data-lucide="arrow-up"></i>
     </button>
   </div>
-
   <footer>
-    <p>&copy; 2026 СРМ-Музична Хронологія.</p>
+    <p>&copy; Музичний таймлайн</p>
   </footer>
-
   <script>
     /**
      * Повна та збережена база даних
@@ -752,8 +787,8 @@
         period: "1940-і, 2 пол.",
         event: "",
         videos: [
-          { id: "", title: "", year: "" },
-          { id: "", title: "", year: "" }
+          { id: "Xij0RcW6FTA", title: "Noah", year: "1946" },
+          { id: "E_hcT51Fo-8", title: "Here Comes Santa Claus", year: "1947" }
         ]
       },
       {
@@ -880,31 +915,41 @@
         period: "2020-і, 2 пол.",
         event: "Walk My Walk (перша AI-пісня в чартах), Baby Shark (по переглядах)",
         videos: [
-          { id: "g_K0tOwUJ1k", title: "Walk My Walk", year: "2025" },
-          { id: "oo3i0r5GHwI", title: "Peaches [MJ cover]", year: "" }
+          { id: "oo3i0r5GHwI", title: "Peaches [MJ cover]", year: "2023" },
+          { id: "g_K0tOwUJ1k", title: "Walk My Walk", year: "2025" }
         ]
       }
     ];
-
     const timelineItemsContainer = document.getElementById('timelineItems');
     const searchInput = document.getElementById('searchInput');
     const floatingSearchInput = document.getElementById('floatingSearchInput');
     const backToTopBtn = document.getElementById('backToTopBtn');
     const floatingControls = document.getElementById('floatingControls');
-
+    /**
+     * Повертає хронологічний числовий рейтинг для сортування за зростанням
+     * "1910-і, 2 пол." -> 19102
+     * "1920-і, 1 пол." -> 19201
+     */
+    function getChronologicalScore(periodStr) {
+      const yearMatch = periodStr.match(/(\d{4})/);
+      const baseYear = yearMatch ? parseInt(yearMatch[1], 10) : 0;
+      let halfScore = 1;
+      if (periodStr.includes("2 пол")) {
+        halfScore = 2;
+      }
+      return baseYear * 10 + halfScore;
+    }
     /**
      * Форматує назву періоду: "1950-і, 1 пол." -> "1950-і<br>1 половина"
      */
     function formatPeriod(period) {
       return period.replace(', 1 пол.', '<br>1 половина').replace(', 2 пол.', '<br>2 половина');
     }
-
     /**
      * Побудова таймлайну
      */
     function renderTimeline(data) {
       timelineItemsContainer.innerHTML = '';
-      
       if (data.length === 0) {
         timelineItemsContainer.innerHTML = `
           <div class="no-results">
@@ -915,10 +960,8 @@
         lucide.createIcons();
         return;
       }
-
       data.forEach((item, index) => {
         const hasEvent = item.event && item.event !== '?';
-
         // 1. Блок опису (Основна подія)
         let eventHtml = '';
         if (hasEvent) {
@@ -928,13 +971,13 @@
               <div>
                 <div class="event-card-header">
                   <i data-lucide="sparkles"></i>
-                  <span>Основна подія</span>
+                  <span>Основні події</span>
                 </div>
                 <!-- Збільшено шрифт події, прибрано лапки -->
                 <p class="event-card-text">${item.event}</p>
               </div>
               <div class="event-card-footer">
-                <span>Докладніше</span>
+                <span>Докладніше від Google AI</span>
                 <i data-lucide="external-link"></i>
               </div>
             </a>
@@ -944,13 +987,12 @@
             <div class="event-card-link empty">
               <div class="event-card-header">
                 <i data-lucide="help-circle"></i>
-                <span>Основна подія</span>
+                <span>Основні події</span>
               </div>
               <p class="event-card-text italic">Опис відсутній</p>
             </div>
           `;
         }
-
         // 2. Блок відео-прев'ю (Переспрямовує на YouTube замість iFrame з помилкою 153)
         let videosHtml = `
           <div class="timeline-videos-list">
@@ -988,11 +1030,9 @@
           }
         });
         videosHtml += `</div>`;
-
         // Логіка чергування сторін навколо осі
         let leftContent = '';
         let rightContent = '';
-
         if (index % 2 === 0) {
           leftContent = `<div class="timeline-side left-side videos-side">${videosHtml}</div>`;
           rightContent = `<div class="timeline-side right-side event-side">${eventHtml}</div>`;
@@ -1000,13 +1040,10 @@
           leftContent = `<div class="timeline-side left-side event-side">${eventHtml}</div>`;
           rightContent = `<div class="timeline-side right-side videos-side">${videosHtml}</div>`;
         }
-
         const itemHtml = `
           <div class="timeline-item reveal" id="epoch-row-${index}">
-            
             <!-- Ліва сторона -->
             ${leftContent}
-
             <!-- Центральний маркер епохи з повним фоном та Z-index 9999 -->
             <div class="timeline-marker">
               <div class="timeline-dot">
@@ -1014,26 +1051,20 @@
               </div>
               <div class="timeline-period-label">${formatPeriod(item.period)}</div>
             </div>
-
             <!-- Права сторона -->
             ${rightContent}
-
           </div>
         `;
-
         timelineItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
       });
-
       lucide.createIcons();
       initScrollReveal();
     }
-
     /**
      * Анімація виходу з туману (Focus-Mist Reveal)
      */
     function initScrollReveal() {
       const revealElements = document.querySelectorAll('.reveal');
-      
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -1046,13 +1077,10 @@
         threshold: 0.15,
         rootMargin: "-10% 0px -10% 0px"
       });
-
       revealElements.forEach(el => observer.observe(el));
     }
-
     function calculateStats() {
       document.getElementById('totalPeriods').innerText = timelineData.length;
-
       let totalV = 0;
       timelineData.forEach(item => {
         item.videos.forEach(v => {
@@ -1061,21 +1089,17 @@
       });
       document.getElementById('totalVideos').innerText = totalV;
     }
-
     /**
      * Синхронізована фільтрація
      */
     function syncAndFilter(value) {
       searchInput.value = value;
       floatingSearchInput.value = value;
-      
       const term = value.toLowerCase().trim();
-      
       if (!term) {
         renderTimeline(timelineData);
         return;
       }
-
       const filtered = timelineData.filter(item => {
         const matchPeriod = item.period.toLowerCase().includes(term);
         const matchEvent = item.event.toLowerCase().includes(term);
@@ -1084,34 +1108,30 @@
         );
         return matchPeriod || matchEvent || matchSongs;
       });
-
       renderTimeline(filtered);
     }
-
     searchInput.addEventListener('input', (e) => syncAndFilter(e.target.value));
     floatingSearchInput.addEventListener('input', (e) => syncAndFilter(e.target.value));
-
     window.addEventListener('scroll', () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
       document.getElementById('progress-bar').style.width = scrolled + '%';
-
       if (winScroll > 350) {
         floatingControls.classList.add('visible');
       } else {
         floatingControls.classList.remove('visible');
       }
     });
-
     backToTopBtn.addEventListener('click', () => {
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
     });
-
     document.addEventListener('DOMContentLoaded', () => {
+      // Автоматичне хронологічне сортування від найдавніших (вгорі) до найновіших (внизу)
+      timelineData.sort((a, b) => getChronologicalScore(a.period) - getChronologicalScore(b.period));
       renderTimeline(timelineData);
       calculateStats();
     });
